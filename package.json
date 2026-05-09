@@ -1,0 +1,20 @@
+{
+  "name": "personal-awesome-skills",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "bun": ">=1.1.0"
+  },
+  "scripts": {
+    "validate": "bun run scripts/validate.ts",
+    "registry": "bun run scripts/generate-registry.ts",
+    "readme": "bun run scripts/generate-readme.ts",
+    "install:claude": "bun run scripts/install-claude-code.ts",
+    "check": "bun run validate && bun run registry && bun run readme && bun run validate"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "latest"
+  }
+}

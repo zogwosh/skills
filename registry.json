@@ -1,0 +1,135 @@
+{
+  "schema_version": "1.0",
+  "ccswitch": {
+    "branch": "main",
+    "subdirectory": "skills"
+  },
+  "skills": [
+    {
+      "name": "pr-reviewer",
+      "category": "coding",
+      "path": "skills/coding/pr-reviewer",
+      "description": "Review pull requests for correctness, maintainability, test coverage, and regression risk using concrete code evidence.",
+      "tags": [
+        "coding",
+        "pr",
+        "reviewer"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
+      "name": "test-writer",
+      "category": "coding",
+      "path": "skills/coding/test-writer",
+      "description": "Design and implement focused tests from feature requirements, bug reports, and changed code paths.",
+      "tags": [
+        "coding",
+        "test",
+        "writer"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
+      "name": "zodjs-v4",
+      "category": "coding",
+      "path": "skills/coding/zodjs-v4",
+      "description": "Apply Zod v4 best practices to design runtime-safe schemas, parsing boundaries, and actionable validation errors for TypeScript application code.",
+      "tags": [
+        "coding",
+        "zodjs",
+        "v4"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
+      "name": "weekly-review",
+      "category": "personal-ops",
+      "path": "skills/personal-ops/weekly-review",
+      "description": "Produce a weekly review of goals, completed work, blockers, and next actions from personal notes and logs.",
+      "tags": [
+        "personal-ops",
+        "weekly",
+        "review"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
+      "name": "paper-summarizer",
+      "category": "research",
+      "path": "skills/research/paper-summarizer",
+      "description": "Summarize research papers into objective findings, method limits, and practical takeaways for engineering decisions.",
+      "tags": [
+        "research",
+        "paper",
+        "summarizer"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
+      "name": "blog-editor",
+      "category": "writing",
+      "path": "skills/writing/blog-editor",
+      "description": "Edit technical or product blog drafts for structure, clarity, factual flow, and audience alignment.",
+      "tags": [
+        "writing",
+        "blog",
+        "editor"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
+      "name": "concise-rewriter",
+      "category": "writing",
+      "path": "skills/writing/concise-rewriter",
+      "description": "Rewrite long or noisy text into concise, high-signal output while preserving intent and key facts.",
+      "tags": [
+        "writing",
+        "concise",
+        "rewriter"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    }
+  ]
+}
