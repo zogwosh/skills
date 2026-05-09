@@ -6,6 +6,44 @@
   },
   "skills": [
     {
+      "name": "direct-code-style",
+      "category": "coding",
+      "path": "skills/coding/direct-code-style",
+      "description": "Enforce explicit and low-ceremony implementation style with zero DDD tactical patterns, no internal pubsub, guard clauses, and top-down readability.",
+      "tags": [
+        "coding",
+        "direct",
+        "code",
+        "style"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
+      "name": "neverthrow-best-practices",
+      "category": "coding",
+      "path": "skills/coding/neverthrow-best-practices",
+      "description": "Enforce modern neverthrow 8.2.0 patterns for TypeScript boundaries, refactors, API design, and Result or ResultAsync code reviews.",
+      "tags": [
+        "coding",
+        "neverthrow",
+        "best",
+        "practices"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
       "name": "pr-reviewer",
       "category": "coding",
       "path": "skills/coding/pr-reviewer",
@@ -14,6 +52,25 @@
         "coding",
         "pr",
         "reviewer"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
+      "name": "review-first-commit",
+      "category": "coding",
+      "path": "skills/coding/review-first-commit",
+      "description": "Review workspace changes, decide commit readiness, split semantic commits, and commit safely without mixing unrelated topics.",
+      "tags": [
+        "coding",
+        "review",
+        "first",
+        "commit"
       ],
       "platforms": [
         "claude-code",
