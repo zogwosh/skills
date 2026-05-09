@@ -25,6 +25,7 @@ Subdirectory: skills
   - [Personal Ops](#personal-ops)
 - [Getting Started](#getting-started)
 - [Installing into Claude Code](#installing-into-claude-code)
+- [Installing into Codex](#installing-into-codex)
 - [Creating a New Skill](#creating-a-new-skill)
 - [Maintenance Rules](#maintenance-rules)
 - [Resources](#resources)
@@ -39,21 +40,7 @@ Subdirectory: skills
 - [neverthrow-best-practices](skills/coding/neverthrow-best-practices) - Enforce modern neverthrow 8.2.0 patterns for TypeScript boundaries, refactors, API design, and Result or ResultAsync code reviews.
 - [pr-reviewer](skills/coding/pr-reviewer) - Review pull requests for correctness, maintainability, test coverage, and regression risk using concrete code evidence.
 - [review-first-commit](skills/coding/review-first-commit) - Review workspace changes, decide commit readiness, split semantic commits, and commit safely without mixing unrelated topics.
-- [test-writer](skills/coding/test-writer) - Design and implement focused tests from feature requirements, bug reports, and changed code paths.
 - [zodjs-v4](skills/coding/zodjs-v4) - Apply Zod v4 best practices to design runtime-safe schemas, parsing boundaries, and actionable validation errors for TypeScript application code.
-
-### Writing
-
-- [blog-editor](skills/writing/blog-editor) - Edit technical or product blog drafts for structure, clarity, factual flow, and audience alignment.
-- [concise-rewriter](skills/writing/concise-rewriter) - Rewrite long or noisy text into concise, high-signal output while preserving intent and key facts.
-
-### Research
-
-- [paper-summarizer](skills/research/paper-summarizer) - Summarize research papers into objective findings, method limits, and practical takeaways for engineering decisions.
-
-### Personal Ops
-
-- [weekly-review](skills/personal-ops/weekly-review) - Produce a weekly review of goals, completed work, blockers, and next actions from personal notes and logs.
 <!-- SKILLS:END -->
 
 ## Coding
@@ -86,6 +73,15 @@ bun run install:claude
 ```
 
 This installs each skill directory from `skills/` into `~/.claude/skills/<skill-name>/`.
+
+## Installing into Codex
+
+```bash
+bun run install:codex
+```
+
+This installs each skill directory from `skills/` into `~/.agents/skills/<skill-name>/`, which matches the Codex skills discovery path documented at:
+https://developers.openai.com/codex/skills
 
 ## Creating a New Skill
 

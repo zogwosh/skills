@@ -11,6 +11,7 @@
     "registry": "bun run scripts/generate-registry.ts",
     "readme": "bun run scripts/generate-readme.ts",
     "install:claude": "bun run scripts/install-claude-code.ts",
+    "install:codex": "bun run scripts/install-codex.ts",
     "check": "bun run validate && bun run registry && bun run readme && bun run validate"
   },
   "devDependencies": {
