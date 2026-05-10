@@ -25,6 +25,7 @@ Subdirectory: skills
   - [Personal Ops](#personal-ops)
 - [Getting Started](#getting-started)
 - [Installing into Claude Code](#installing-into-claude-code)
+- [Installing into CCSwitch](#installing-into-ccswitch)
 - [Installing into Codex](#installing-into-codex)
 - [Creating a New Skill](#creating-a-new-skill)
 - [Maintenance Rules](#maintenance-rules)
@@ -75,6 +76,14 @@ bun run install:claude
 ```
 
 This installs each skill directory from `skills/` into `~/.claude/skills/<skill-name>/`.
+
+## Installing into CCSwitch
+
+```bash
+bun run install:ccswitch
+```
+
+This installs each skill directory from `skills/` into `~/.cc-switch/skills/<skill-name>/`.
 
 ## Installing into Codex
 
