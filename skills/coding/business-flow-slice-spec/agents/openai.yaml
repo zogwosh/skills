@@ -1,0 +1,4 @@
+interface:
+  display_name: Business Flow Slice Spec
+  short_description: Create or review BUSINESS_FLOW.md specs for one vertical business flow.
+  default_prompt: Create a Business Flow Slice Spec for this feature, including state flow, data flow, side effects, failure states, code map, and validation.

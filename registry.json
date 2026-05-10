@@ -6,6 +6,26 @@
   },
   "skills": [
     {
+      "name": "business-flow-slice-spec",
+      "category": "coding",
+      "path": "skills/coding/business-flow-slice-spec",
+      "description": "Create, review, or update BUSINESS_FLOW.md vertical business-flow specs from requirements, code, tickets, or conversations; use for state/data/side-effect/failure/validation flow docs, not for DDD modeling, generic module docs, or architecture essays.",
+      "tags": [
+        "coding",
+        "business",
+        "flow",
+        "slice",
+        "spec"
+      ],
+      "platforms": [
+        "claude-code",
+        "ccswitch",
+        "chatgpt",
+        "codex"
+      ],
+      "status": "active"
+    },
+    {
       "name": "direct-code-style",
       "category": "coding",
       "path": "skills/coding/direct-code-style",
@@ -28,7 +48,7 @@
       "name": "honojs-rpc-best-practices",
       "category": "coding",
       "path": "skills/coding/honojs-rpc-best-practices",
-      "description": "Use when implementing or reviewing Hono TypeScript RPC APIs with hc<AppType> and validator middleware contracts; do not use for non-Hono or non-RPC tasks.",
+      "description": "Implement or review Hono TypeScript RPC APIs using hc<AppType>, typed route chains, validator middleware, and c.req.valid; use for route/AppType/client inference issues, not for non-Hono, generic REST, or frontend-only work.",
       "tags": [
         "coding",
         "honojs",
@@ -104,7 +124,7 @@
       "name": "zodjs-v4",
       "category": "coding",
       "path": "skills/coding/zodjs-v4",
-      "description": "Use when implementing or refactoring TypeScript runtime validation with Zod v4 at trust boundaries; do not use when the project is not using Zod schemas.",
+      "description": "Implement or review TypeScript runtime validation with Zod v4 at trust boundaries using schemas, safeParse, derived input/output types, and structured errors; not for compile-time-only types or non-Zod validators.",
       "tags": [
         "coding",
         "zodjs",
