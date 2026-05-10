@@ -36,11 +36,12 @@ Subdirectory: skills
 <!-- SKILLS:START -->
 ### Coding
 
-- [direct-code-style](skills/coding/direct-code-style) - Enforce explicit and low-ceremony implementation style with zero DDD tactical patterns, no internal pubsub, guard clauses, and top-down readability.
-- [neverthrow-best-practices](skills/coding/neverthrow-best-practices) - Enforce modern neverthrow 8.2.0 patterns for TypeScript boundaries, refactors, API design, and Result or ResultAsync code reviews.
-- [pr-reviewer](skills/coding/pr-reviewer) - Review pull requests for correctness, maintainability, test coverage, and regression risk using concrete code evidence.
-- [review-first-commit](skills/coding/review-first-commit) - Review workspace changes, decide commit readiness, split semantic commits, and commit safely without mixing unrelated topics.
-- [zodjs-v4](skills/coding/zodjs-v4) - Apply Zod v4 best practices to design runtime-safe schemas, parsing boundaries, and actionable validation errors for TypeScript application code.
+- [direct-code-style](skills/coding/direct-code-style) - Use when implementing or refactoring TypeScript business logic toward explicit low-ceremony code style; do not use when DDD tactical layering or event-driven internals are required.
+- [honojs-rpc-best-practices](skills/coding/honojs-rpc-best-practices) - Use when implementing or reviewing Hono TypeScript RPC APIs with hc<AppType> and validator middleware contracts; do not use for non-Hono or non-RPC tasks.
+- [neverthrow-best-practices](skills/coding/neverthrow-best-practices) - Use when designing or refactoring TypeScript error contracts with neverthrow Result or ResultAsync; do not use for throw-only flows or paths that cannot fail.
+- [pr-reviewer](skills/coding/pr-reviewer) - Use when reviewing pull request changes for correctness and regression risk with concrete code evidence; do not use for feature implementation tasks without a review scope.
+- [review-first-commit](skills/coding/review-first-commit) - Use when deciding whether workspace changes are commit-ready and producing clean semantic commits; do not use when the user only wants diagnosis or no commit action.
+- [zodjs-v4](skills/coding/zodjs-v4) - Use when implementing or refactoring TypeScript runtime validation with Zod v4 at trust boundaries; do not use when the project is not using Zod schemas.
 <!-- SKILLS:END -->
 
 ## Coding

@@ -1,6 +1,6 @@
 ---
 name: neverthrow-best-practices
-description: Enforce modern neverthrow 8.2.0 patterns for TypeScript boundaries, refactors, API design, and Result or ResultAsync code reviews.
+description: Use when designing or refactoring TypeScript error contracts with neverthrow Result or ResultAsync; do not use for throw-only flows or paths that cannot fail.
 ---
 
 # Neverthrow Best Practices
@@ -17,6 +17,18 @@ Enforce consistent neverthrow-based error contracts in TypeScript code while kee
 - Standardize error handling contracts.
 - Design new APIs with neverthrow.
 
+## When Not To Use
+
+- A code path cannot fail and a plain value is sufficient.
+- The user explicitly wants exception-first flow at that boundary.
+- Throwaway scripts do not need typed failure contracts.
+
+## Inputs
+
+- Boundary functions and module contracts to refactor.
+- Existing error shapes, throw sites, and promise rejection paths.
+- Constraints on backward compatibility and error semantics.
+
 ## Decision Rules
 
 1. Module and service boundaries must declare explicit result return types.
@@ -26,18 +38,26 @@ Enforce consistent neverthrow-based error contracts in TypeScript code while kee
 5. Convert only real failure boundaries; do not wrap trivial pure helpers that cannot fail.
 6. Ban weak typing such as `Result<any, any>`.
 
-## When To Use
+## Workflow
 
-- Cross-module APIs need explicit success and failure contracts.
-- Legacy code mixes `try/catch`, `null`, and rejected promises.
-- Teams need consistent, reviewable error behavior.
-- Refactors must preserve business meaning while tightening type safety.
+1. Identify boundary functions and classify expected failure modes.
+2. Define narrow discriminated error unions with preserved context.
+3. Refactor return types to `Result` or `ResultAsync` at boundaries.
+4. Remove mixed error channels and normalize consumption points.
+5. Verify call sites handle all variants explicitly.
 
-## When Not To Use
+## Output Format
 
-- The function cannot fail and a plain value is sufficient.
-- The code path is an explicit throwaway script where strict result contracts add no value.
-- A broad migration would add noise without improving boundary safety.
+- `Boundary decisions`: where neverthrow was applied and where it was intentionally skipped.
+- `Type contract changes`: updated `Result` or `ResultAsync` signatures and error union variants.
+- `Migration notes`: required call-site handling updates and remaining risks.
+
+## Trigger Test Prompts
+
+- Should trigger: "Refactor these service methods from throw/catch to ResultAsync with typed error unions."
+- Should trigger: "Review this neverthrow usage for mixed failure channels and unsafe unwraps."
+- Should not trigger: "Add try/catch logging only and keep thrown exceptions as the primary API contract."
+- Should not trigger: "Optimize a pure helper function that has no failure path."
 
 ## References
 
