@@ -68,7 +68,7 @@
       "name": "neverthrow-best-practices",
       "category": "coding",
       "path": "skills/coding/neverthrow-best-practices",
-      "description": "Use when designing or refactoring TypeScript error contracts with neverthrow Result or ResultAsync; do not use for throw-only flows or paths that cannot fail.",
+      "description": "Use when designing or reviewing TypeScript neverthrow Result/ResultAsync domain error contracts, safeTry flows, observability tees, or throw-to-Result migrations; do not use for throw-first APIs or infallible helpers.",
       "tags": [
         "coding",
         "neverthrow",
@@ -124,7 +124,7 @@
       "name": "zodjs-v4",
       "category": "coding",
       "path": "skills/coding/zodjs-v4",
-      "description": "Implement or review TypeScript runtime validation with Zod v4 at trust boundaries using schemas, safeParse, derived input/output types, and structured errors; not for compile-time-only types or non-Zod validators.",
+      "description": "Implement or review TypeScript runtime validation with Zod v4 at trust boundaries using strict schemas, safeParse, schema-derived input/output types, codecs, and structured errors; not for compile-time-only typing or non-Zod validators.",
       "tags": [
         "coding",
         "zodjs",

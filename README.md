@@ -40,10 +40,10 @@ Subdirectory: skills
 - [business-flow-slice-spec](skills/coding/business-flow-slice-spec) - Create, review, or update BUSINESS_FLOW.md vertical business-flow specs from requirements, code, tickets, or conversations; use for state/data/side-effect/failure/validation flow docs, not for DDD modeling, generic module docs, or architecture essays.
 - [direct-code-style](skills/coding/direct-code-style) - Use when implementing or refactoring TypeScript business logic toward explicit low-ceremony code style; do not use when DDD tactical layering or event-driven internals are required.
 - [honojs-rpc-best-practices](skills/coding/honojs-rpc-best-practices) - Implement or review Hono TypeScript RPC APIs using hc<AppType>, typed route chains, validator middleware, and c.req.valid; use for route/AppType/client inference issues, not for non-Hono, generic REST, or frontend-only work.
-- [neverthrow-best-practices](skills/coding/neverthrow-best-practices) - Use when designing or refactoring TypeScript error contracts with neverthrow Result or ResultAsync; do not use for throw-only flows or paths that cannot fail.
+- [neverthrow-best-practices](skills/coding/neverthrow-best-practices) - Use when designing or reviewing TypeScript neverthrow Result/ResultAsync domain error contracts, safeTry flows, observability tees, or throw-to-Result migrations; do not use for throw-first APIs or infallible helpers.
 - [pr-reviewer](skills/coding/pr-reviewer) - Use when reviewing pull request changes for correctness and regression risk with concrete code evidence; do not use for feature implementation tasks without a review scope.
 - [review-first-commit](skills/coding/review-first-commit) - Use when deciding whether workspace changes are commit-ready and producing clean semantic commits; do not use when the user only wants diagnosis or no commit action.
-- [zodjs-v4](skills/coding/zodjs-v4) - Implement or review TypeScript runtime validation with Zod v4 at trust boundaries using schemas, safeParse, derived input/output types, and structured errors; not for compile-time-only types or non-Zod validators.
+- [zodjs-v4](skills/coding/zodjs-v4) - Implement or review TypeScript runtime validation with Zod v4 at trust boundaries using strict schemas, safeParse, schema-derived input/output types, codecs, and structured errors; not for compile-time-only typing or non-Zod validators.
 <!-- SKILLS:END -->
 
 ## Coding

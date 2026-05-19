@@ -1,4 +1,4 @@
 interface:
   display_name: Zod.js v4 Best Practices
-  short_description: Build Zod v4 parse boundaries with safeParse, derived types, and structured errors.
-  default_prompt: Review this TypeScript validation code for Zod v4 boundary placement, schemas, safeParse usage, input/output types, transforms, error mapping, and verification.
+  short_description: Build Zod v4 trust-boundary schemas with safeParse, codecs, derived types, and structured errors.
+  default_prompt: Review this TypeScript validation code for Zod v4 strictness, boundary placement, unknown-key policy, schemas, safeParse usage, input/output types, transforms/codecs, error mapping, and verification.
