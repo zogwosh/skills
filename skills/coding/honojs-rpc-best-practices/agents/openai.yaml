@@ -1,0 +1,4 @@
+interface:
+  display_name: Hono RPC Best Practices
+  short_description: Keep Hono RPC routes, validators, AppType exports, and hc clients type-safe.
+  default_prompt: Review this Hono TypeScript RPC API for route typing, validator contracts, AppType export, hc client usage, response unions, and verification.
