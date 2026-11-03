@@ -1,100 +1,116 @@
 ---
 name: web-ui-verification
 description: >-
-  Deep browser verification for web UI: real viewport screenshots with image
-  inspection, plus dynamic interaction and runtime acceptance. Use when the
-  user asks to verify, QA, or acceptance-test browser UI, after harness-ui-craft
-  when deeper checks are needed, or when validating visual and behavioral
-  regressions. Do not use for design-first UI crafting (prefer harness-ui-craft),
-  backend-only work, or native non-browser UI.
+  Browser UI evidence workflow for harness/frontend changes. Runs the real app,
+  captures scoped screenshots, exercises affected interactions, and prefers
+  project E2E or visual-regression tools over model judgment. Use when the user
+  asks to verify, QA, or gather acceptance evidence for web UI. Do not use to
+  let the agent self-certify visual polish from screenshots; do not use for
+  design-first crafting (prefer harness-ui-craft); skip backend-only and native
+  non-browser UI.
 ---
 
-# Web UI Verification
+# Web UI Verification (evidence, not LLM judgment)
 
-Capability-based protocol for verifying user-visible changes in browser-rendered UIs.
+Gather **reproducible evidence** that the user (or automated visual tools) can accept.
 
-Do not hard-code project URLs, selectors, fixtures, auth, or frameworks — discover them at runtime.
+**Why:** Model attention is a poor allocator for “does this UI look right?”. Do not treat agent screenshot glance as Visual PASS.
+
+| Actor | Responsibility |
+| --- | --- |
+| Agent | Start app, scope tests, run tools, capture artifacts, list checkable findings |
+| Project tools | E2E / screenshot diff / a11y when available — prefer these over model taste |
+| User | Final acceptance of look-and-feel and product correctness |
 
 ## Applicability
 
 **Use when**
-- User asks to verify / QA / acceptance-test web UI
-- Deeper check after `harness-ui-craft` implementation
-- Validating visual or behavioral regressions in the browser
+- User asks to verify / QA / collect acceptance evidence for browser UI
+- After `harness-ui-craft`, deeper evidence is requested
 
 **Do not use when**
-- Design-first build/polish in a harness → `harness-ui-craft`
+- Design-first build/polish → `harness-ui-craft`
 - Backend-only or native non-browser UI
+- Expectation is agent aesthetic sign-off without human/tool gate
 
 ## Workflow
 
 ```text
-1. Derive affected scope
-2. Discover project verification capabilities
-3. Run the real application
-4. Visual Acceptance  ◄── fix & re-run
-5. Dynamic Browser Acceptance  ◄── fix & re-run (re-do visual if layout changed)
-6. Result: PASS | FAIL | BLOCKED
+1. Scope what changed
+2. Prefer project verification tools
+3. Run the real app
+4. Capture visual evidence (+ tool diffs if any)
+5. Exercise affected interactions; record outcomes
+6. Report evidence → user (or CI tool) decides accept/reject
 ```
 
-1. **Scope** — From requirements/diff/journeys: affected surfaces, viewports, states, interactions. Only test what changed or is reasonably affected.
-2. **Capabilities** — Prefer project E2E/dev tools (`package.json`, Playwright/Cypress, etc.) before generic agent browser tools.
-3. **Run app** — Use the project's documented start path. Source/DOM/CSS inspection is not a substitute. Judge readiness from observable app state, not fixed sleeps.
-4. **Visual** — Must PASS before dynamic acceptance.
-5. **Dynamic** — Real interactions + runtime/network checks on affected flows.
-6. **Repair loop** — Fix, re-verify; if a functional fix changes layout, re-run visual.
+### 1. Scope
 
-## Visual acceptance
+From diff/requirements: affected surfaces, viewports, states, interactions only. No unrelated journeys.
 
-- At least two viewports when relevant: desktop ~1440px and a narrow/tablet breakpoint from the project.
-- Capture the **real** app viewport — not isolated synthetic component dumps as the only evidence.
-- **Inspect the image content.** `screenshot succeeded` ≠ PASS.
-- Check: overflow/clip/overlap/z-index, spacing/alignment, responsive wrap/truncate, unusable controls/dialogs.
-- Time-based UI (skeleton, async reveal, accordion): observe live; screenshot key states if needed. One still frame cannot prove transitions.
+### 2. Prefer tools over eyeballing
 
-## Dynamic acceptance
+Inspect `package.json`, E2E configs, visual-regression setup. Order:
 
-- Exercise only affected actions (click, type, select, toggle, open/close, submit, retry).
-- Verify observable UI/app outcomes — not “handler exists in source”.
-- Forms: exercise validation/submit when behavior could change; pure visual form tweaks need visual/focus/runtime stability only.
-- Async: `action → pending → result → observable update`. No fake UI (e.g. Save that only closes a modal).
-- No unexplained console/runtime errors or unexpected network failures from the flow under test.
-- Surfaces with no controls: still load, observe stability and dynamic render; do not invent interactions.
+1. Project Playwright/Cypress/Storybook/Chromatic/Percy/etc.
+2. Generic browser automation only as fallback to **produce artifacts**
+3. Model image commentary only as optional hints — never the acceptance decision
+
+### 3. Run the real app
+
+Documented project start path. Build/lint/DOM read ≠ verified. Judge readiness from observable app state, not fixed sleeps.
+
+### 4. Visual evidence
+
+- Capture real viewports for affected sizes (e.g. ~1440px + project narrow breakpoint)
+- For async/temporal UI: capture distinct states (skeleton vs loaded), observe live if needed
+- If screenshot-diff tools exist, run them and report **diff results**
+- Agent may flag **objective** issues (clipping, overlap, horizontal scroll, broken control hit targets) as candidates
+- Agent must **not** declare aesthetic PASS/FAIL on polish, “Linear feel”, or typography taste
+
+### 5. Behavioral evidence
+
+- Only affected actions (click, type, submit, …)
+- Record observable outcomes (UI state, network, console)
+- Reject fake UI (controls that don’t drive real behavior)
+- Distinguish expected errors (e.g. 422 on invalid input) from regressions
+
+### 6. Report (evidence package)
+
+```markdown
+### UI Evidence Report
+
+**Artifacts**
+- Screenshots / recordings: …
+- Tool runs (E2E, visual diff, a11y): … (pass/fail/skipped + logs)
+
+**Objective findings** (agent-observed, for user confirmation)
+- …
+
+**Behavioral notes**
+- Interactions exercised: …
+- Runtime/network: …
+
+**Acceptance**
+- Agent visual self-PASS: **not allowed**
+- Awaiting: user review / CI visual gate
+```
 
 ## Forbidden equivalences
 
 ```text
-build / lint / typecheck / unit tests passed  ≠  UI verified
-DOM looks correct                            ≠  UI verified
-screenshot file exists                       ≠  Visual PASS
-event handler exists                         ≠  Interaction verified
-could not verify                             ≠  PASS
+build / lint / types / unit tests     ≠  UI accepted
+screenshot file exists                ≠  visual accepted
+agent says "looks good"               ≠  visual accepted
+DOM / source inspection               ≠  browser evidence
+could not capture evidence            ≠  accepted
 ```
 
-## Result semantics
+## Result labels (honest)
 
-| Result | Meaning |
+| Label | Meaning |
 | --- | --- |
-| PASS | Applicable stages ran in a live browser and met criteria |
-| FAIL | Unresolved visual, functional, interaction, or runtime defects |
-| BLOCKED | A required stage could not run (app/browser/credentials). Never assume PASS |
-
-Complete only when **Visual** and **Dynamic** are both PASS (or document BLOCKED honestly).
-
-## Report
-
-```markdown
-### Web UI Verification Report
-
-**Visual Acceptance**: PASS | FAIL | BLOCKED
-- Viewports: …
-- States: …
-- Findings: …
-
-**Dynamic Browser Acceptance**: PASS | FAIL | BLOCKED
-- Interactions: …
-- Async/data flow: …
-- Runtime: …
-
-**Overall**: PASS | FAIL | BLOCKED
-```
+| EVIDENCE_READY | Artifacts (+ tool results) produced for user/CI |
+| TOOL_FAIL | Project verification tool reported failure |
+| BLOCKED | Could not run app/browser/tools/credentials |
+| AGENT_PASS on visuals | **Disallowed** |

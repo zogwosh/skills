@@ -24,10 +24,10 @@ Omit `-g` for project-scoped install.
 | Skill | Role | Trigger |
 | --- | --- | --- |
 | `typescript-style` | TS/React house style (cognitive load + Google beyond gts) | Write/review `.ts`/`.tsx` |
-| `harness-ui-craft` | Design-first UI craft (preset → Linear plan → code → screenshot) | Build/polish UI in harness/sandbox |
-| `web-ui-verification` | Deep browser visual + behavioral QA | Explicit verify/QA, or deeper check after craft |
+| `harness-ui-craft` | Design-first craft; screenshots as **user evidence**, not agent PASS | Build/polish UI in harness/sandbox |
+| `web-ui-verification` | Browser evidence + project tools; **user/CI** accepts, not the LLM | Explicit verify/QA after changes |
 
-`harness-ui-craft` owns **making** UI. `web-ui-verification` owns **proving** UI in the browser. Do not expect craft behavior from the verification skill alone.
+**UI trust model:** LLMs are weak at visual acceptance (attention drifts). Craft = design + implement + capture. Verification = artifacts and tool diffs. Humans or screenshot-regression CI own “looks right.”
 
 ## Layout
 

@@ -1,74 +1,74 @@
 ---
 name: harness-ui-craft
 description: >-
-  Design-first UI craft for harness, playground, sandbox, or frontend work:
-  require a project UI preset, draft a Linear-inspired design before coding,
-  then screenshot-verify the rendered result. Use when the user asks to modify,
-  refactor, polish, or build UI views/components in a harness or component
-  sandbox, or mentions Linear aesthetics, UI preset, or design-first UI.
-  Do not use for backend-only work, native non-browser UI, or pure verification
-  without design/implementation (prefer web-ui-verification for deep QA).
+  Design-first UI craft for harness, playground, sandbox, or frontend work.
+  Requires a project UI preset, drafts a Linear-inspired design before coding,
+  implements against that plan, then captures screenshots as evidence for the
+  user—never as agent self-acceptance. Use when modifying, refactoring,
+  polishing, or building UI in a harness/sandbox, or when the user mentions
+  Linear aesthetics, UI preset, or design-first UI. Do not use for backend-only
+  work, native non-browser UI, or asking the agent to declare UI PASS/FAIL by
+  glancing at screenshots.
 ---
 
 # Harness UI Craft
 
-Workflow for building or polishing UI in a harness / sandbox / playground / frontend app.
+Build or polish UI in a harness / sandbox / playground / frontend app.
 
-**Priority:** project UI preset → design plan → code → real screenshot check.
-
-For deep visual + behavioral QA beyond a craft screenshot loop, invoke `web-ui-verification`.
+**LLM role:** preset gate, design plan, implementation, evidence capture.  
+**Not LLM role:** final visual acceptance. Humans (or pixel/regression tools) own that — model attention is unreliable for “does this look right?”.
 
 ## Applicability
 
 **Use when**
-- Modifying, refactoring, polishing, or building UI in a harness/sandbox/playground
-- User wants Linear-like craft, design-before-code, or project UI presets enforced
+- Modify / refactor / polish / build UI in harness or component sandbox
+- User wants preset-gated, Linear-inspired, design-before-code workflow
 
 **Do not use when**
-- Backend-only / no browser UI
-- Native non-browser UI
-- User only wants verification/QA of existing UI with no design/implementation → `web-ui-verification`
+- Backend-only or native non-browser UI
+- User wants the agent to **certify** UI quality from screenshots alone
 
 ## Phase 0 — Preset gate
 
-Find a project UI preset (e.g. `design.md`, `DESIGN.md`, `tokens.json`, design-system docs, component library guidelines).
+Locate a project UI preset (`design.md`, `DESIGN.md`, `tokens.json`, design-system docs, etc.).
 
 | Result | Action |
 | --- | --- |
-| Found | Treat it as the normative baseline for this change |
-| Missing | **Stop.** Do not edit UI. Tell the user the project has no UI preset and ask them to provide or generate one first |
+| Found | Use as the only style authority for this change |
+| Missing | **Stop.** Ask the user to provide or generate a preset before any UI edits |
 
 ## Phase 1 — Design before code
 
-Before any UI code change, output a short design plan using the preset **and** Linear-style craft:
+Before editing UI code, publish a short plan (preset + Linear craft):
 
-- Structure and information hierarchy
-- Typography ladder and rhythm
-- Visual hierarchy; Default / Hover / Active / Focus where relevant
-- Restraint, alignment, density, subtle motion — Linear aesthetics, not loud decoration
+- Information hierarchy and layout structure
+- Typography ladder / rhythm
+- Hierarchy and interaction states (Default / Hover / Active / Focus) when relevant
+- Restraint, alignment, density, subtle motion — not decorative noise
 
-Get alignment (explicit user OK, or clear go-ahead in-thread) before implementing.
+Wait for user go-ahead (or an explicit “just implement”) before coding.
 
 ## Phase 2 — Implement
 
-- Follow the agreed plan and the preset tokens/patterns
-- Prefer one abstraction level; avoid unexplained magic numbers
-- Match existing project stack and file conventions
+- Follow the agreed plan and preset tokens/patterns
+- One abstraction level; no unexplained magic numbers
+- Match project stack and file layout
 
-## Phase 3 — Screenshot verification
+## Phase 3 — Evidence for the user (not self-PASS)
 
-1. Start or open the local harness / app the project actually uses
-2. Render the changed view/component in a real browser
-3. Capture screenshots of the affected UI (relevant viewports/states)
-4. Inspect the images (not “screenshot command succeeded = pass”)
-5. Fix visual gaps vs plan/preset; re-capture after fixes
-6. Show screenshots to the user for acceptance
+1. Run the real harness/app
+2. Capture screenshots of affected views/states/viewports
+3. Hand evidence to the user: what changed, which preset/plan items to check, screenshot(s)
+4. If the project has visual regression tooling (Playwright screenshots, Chromatic, Percy, etc.), run that and report **tool** output — do not replace it with model opinion
+5. Apply user feedback; re-capture after fixes
 
-Static checks (build/lint/DOM read) do **not** replace screenshots.
+**Forbidden:** treating “I looked at the screenshot” as acceptance.  
+**Allowed:** noting concrete, checkable defects (e.g. overlapping controls, obvious overflow) as **candidates** for the user to confirm — never a final PASS.
 
 ## Checklist
 
-1. Preset present — else halt
-2. Design plan written (Linear + preset) before code
-3. Implementation matches plan
-4. Real render + screenshots inspected and shared
+1. Preset exists — else halt
+2. Design plan before code
+3. Implementation matches plan + preset
+4. Screenshots (and any regression tools) delivered to the user
+5. No agent-declared visual PASS
