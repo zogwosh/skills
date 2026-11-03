@@ -5,15 +5,12 @@ Personal agent skills for Cursor and other agents that support the [Agent Skills
 ## Install
 
 ```bash
-# List skills in this repo
 npx skills add zogwosh/skills --list
 
-# Install to Cursor (global)
 npx skills add zogwosh/skills --skill typescript-style -a cursor -g -y
 npx skills add zogwosh/skills --skill harness-ui-craft -a cursor -g -y
-npx skills add zogwosh/skills --skill web-ui-verification -a cursor -g -y
 
-# Install all
+# both
 npx skills add zogwosh/skills --skill '*' -a cursor -g -y
 ```
 
@@ -21,13 +18,14 @@ Omit `-g` for project-scoped install.
 
 ## Skills
 
-| Skill | Role | Trigger |
-| --- | --- | --- |
-| `typescript-style` | TS/React house style (cognitive load + Google beyond gts) | Write/review `.ts`/`.tsx` |
-| `harness-ui-craft` | Design-first craft; screenshots as **user evidence**, not agent PASS | Build/polish UI in harness/sandbox |
-| `web-ui-verification` | Browser evidence + project tools; **user/CI** accepts, not the LLM | Explicit verify/QA after changes |
+| Skill | Role |
+| --- | --- |
+| `typescript-style` | TS/React house style (cognitive load + Google beyond gts) |
+| `harness-ui-craft` | UI: preset → Linear design → code → evidence for user/CI (not LLM visual PASS) |
 
-**UI trust model:** LLMs are weak at visual acceptance (attention drifts). Craft = design + implement + capture. Verification = artifacts and tool diffs. Humans or screenshot-regression CI own “looks right.”
+Two skills on purpose: **code style** vs **UI craft**. A single mega-skill would muddy triggers. The old `web-ui-verification` skill was folded into `harness-ui-craft` Phase 3 so UI work does not compete with a second skill.
+
+**UI trust model:** LLMs are weak at visual acceptance. Craft produces design, code, and artifacts; humans or screenshot-regression CI accept look-and-feel.
 
 ## Layout
 
@@ -37,7 +35,5 @@ skills/
     SKILL.md
     google-judgment.md
   harness-ui-craft/
-    SKILL.md
-  web-ui-verification/
     SKILL.md
 ```

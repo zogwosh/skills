@@ -1,74 +1,94 @@
 ---
 name: harness-ui-craft
 description: >-
-  Design-first UI craft for harness, playground, sandbox, or frontend work.
-  Requires a project UI preset, drafts a Linear-inspired design before coding,
-  implements against that plan, then captures screenshots as evidence for the
-  user—never as agent self-acceptance. Use when modifying, refactoring,
-  polishing, or building UI in a harness/sandbox, or when the user mentions
-  Linear aesthetics, UI preset, or design-first UI. Do not use for backend-only
-  work, native non-browser UI, or asking the agent to declare UI PASS/FAIL by
-  glancing at screenshots.
+  Design-first UI workflow for harness, playground, sandbox, or frontend work:
+  require a project UI preset, draft a Linear-inspired plan before coding,
+  implement, then capture browser evidence for the user (or run project visual
+  tools)—never agent self-PASS on look-and-feel. Use when modifying, polishing,
+  building, or gathering acceptance evidence for UI in a harness/sandbox, or
+  when the user mentions Linear aesthetics, UI preset, design-first UI, or UI
+  verification evidence. Do not use for backend-only work, native non-browser
+  UI, or asking the agent to certify visual polish from screenshots alone.
 ---
 
 # Harness UI Craft
 
-Build or polish UI in a harness / sandbox / playground / frontend app.
+One workflow for making UI and packaging acceptance evidence.
 
-**LLM role:** preset gate, design plan, implementation, evidence capture.  
-**Not LLM role:** final visual acceptance. Humans (or pixel/regression tools) own that — model attention is unreliable for “does this look right?”.
+**LLM:** preset gate, design, implementation, scoped browser evidence / tool runs.  
+**Not LLM:** final look-and-feel acceptance (attention drifts). User or visual-regression CI decides.
 
 ## Applicability
 
 **Use when**
-- Modify / refactor / polish / build UI in harness or component sandbox
-- User wants preset-gated, Linear-inspired, design-before-code workflow
+- Build / polish / refactor UI in harness, sandbox, playground, or frontend
+- Need screenshots or project E2E/visual-tool evidence after UI changes
 
 **Do not use when**
 - Backend-only or native non-browser UI
-- User wants the agent to **certify** UI quality from screenshots alone
+- Expectation is agent aesthetic sign-off without human/tool gate
 
 ## Phase 0 — Preset gate
 
-Locate a project UI preset (`design.md`, `DESIGN.md`, `tokens.json`, design-system docs, etc.).
+Find a project UI preset (`design.md`, `DESIGN.md`, `tokens.json`, design-system docs, …).
 
 | Result | Action |
 | --- | --- |
-| Found | Use as the only style authority for this change |
-| Missing | **Stop.** Ask the user to provide or generate a preset before any UI edits |
+| Found | Sole style authority for this change |
+| Missing | **Stop.** Ask user to provide or generate a preset before UI edits |
 
 ## Phase 1 — Design before code
 
-Before editing UI code, publish a short plan (preset + Linear craft):
+Before UI code changes, publish a short plan (preset + Linear craft):
 
-- Information hierarchy and layout structure
+- Structure and information hierarchy
 - Typography ladder / rhythm
-- Hierarchy and interaction states (Default / Hover / Active / Focus) when relevant
-- Restraint, alignment, density, subtle motion — not decorative noise
+- Visual hierarchy; Default / Hover / Active / Focus when relevant
+- Restraint, alignment, density, subtle motion
 
-Wait for user go-ahead (or an explicit “just implement”) before coding.
+Wait for go-ahead (or explicit “just implement”) before coding.
 
 ## Phase 2 — Implement
 
-- Follow the agreed plan and preset tokens/patterns
+- Follow plan + preset tokens/patterns
 - One abstraction level; no unexplained magic numbers
-- Match project stack and file layout
+- Match project stack and layout
 
-## Phase 3 — Evidence for the user (not self-PASS)
+## Phase 3 — Evidence (not self-PASS)
 
-1. Run the real harness/app
-2. Capture screenshots of affected views/states/viewports
-3. Hand evidence to the user: what changed, which preset/plan items to check, screenshot(s)
-4. If the project has visual regression tooling (Playwright screenshots, Chromatic, Percy, etc.), run that and report **tool** output — do not replace it with model opinion
-5. Apply user feedback; re-capture after fixes
+1. Run the real harness/app (documented start path; lint/build ≠ evidence)
+2. Prefer project tools when present (Playwright, Cypress, Chromatic, Percy, Storybook, …); report **tool** output
+3. Otherwise capture real-browser screenshots of affected views/states/viewports
+4. Scope only what changed — no unrelated journeys
+5. Optionally exercise affected interactions; record observable outcomes / console / network
+6. Deliver an evidence package to the user; apply their feedback and re-capture
 
-**Forbidden:** treating “I looked at the screenshot” as acceptance.  
-**Allowed:** noting concrete, checkable defects (e.g. overlapping controls, obvious overflow) as **candidates** for the user to confirm — never a final PASS.
+**Allowed:** flag objective candidates (overflow, overlap, clipped controls) for user confirmation.  
+**Forbidden:** agent Visual PASS on polish, “Linear feel”, or typography taste.
+
+```text
+build / lint / types / unit tests   ≠  accepted
+screenshot file exists              ≠  accepted
+agent "looks good"                  ≠  accepted
+could not capture evidence          ≠  accepted
+```
+
+### Evidence report
+
+```markdown
+### UI Evidence Report
+
+**Artifacts:** screenshots / recordings / tool logs …
+**Tool results:** pass | fail | skipped …
+**Objective candidates (for user):** …
+**Behavioral notes:** …
+**Acceptance:** awaiting user or CI — agent visual self-PASS disallowed
+```
 
 ## Checklist
 
-1. Preset exists — else halt
+1. Preset present — else halt
 2. Design plan before code
 3. Implementation matches plan + preset
-4. Screenshots (and any regression tools) delivered to the user
+4. Real app evidence (tools and/or screenshots) given to user
 5. No agent-declared visual PASS
