@@ -1,26 +1,29 @@
 ---
 name: linear-ship
 description: >-
-  Ships UI with a Linear-style design → build → automated verify loop. Generates
-  a project design.md when missing, implements pages/components to Linear craft
-  plus that preset, installs Playwright if absent, and gates completion on
-  automated checks—not model aesthetic PASS. Use when designing, building,
-  polishing, or shipping web UI / harness / sandbox pages, or when the user
-  mentions Linear style, linear-ship, design.md, or Playwright UI verification.
-  Do not use for backend-only work or native non-browser UI.
+  Ships UI with a Linear-style design → build → automated verify loop. Reads the
+  Linear design canon, generates design.md from that canon when missing, plans
+  and implements pages to those rules (not generic modern UI), installs
+  Playwright if absent, and gates completion on automated checks—not model
+  aesthetic PASS. Use when designing, building, polishing, or shipping web UI /
+  harness / sandbox pages, or when the user mentions Linear style, linear-ship,
+  design.md, or Playwright UI verification. Do not use for backend-only work or
+  native non-browser UI.
 ---
 
 # Linear Ship
 
-Pipeline: **Design (Linear) → Build → Automated verify**.
+Pipeline: **Design (Linear canon) → Build → Automated verify**.
 
 | Step | Agent does | Done means |
 | --- | --- | --- |
-| Design | Ensure `design.md` (create if missing); publish a short Linear plan | Preset + plan exist |
-| Build | Implement UI to preset + Linear craft | Code matches plan |
-| Verify | Ensure Playwright; run automated checks | **Tests pass** (not “looks good”) |
+| Design | Read [linear-design.md](linear-design.md); ensure `design.md`; write a **bound** Linear plan | Plan cites canon tokens/roles |
+| Build | Implement to `design.md` + canon | Code matches plan |
+| Verify | Ensure Playwright; run automated checks | **Tests pass** |
 
-Final look-and-feel taste stays with the user; the ship gate is **automation**.
+“Linear” is not a vibe word. **Follow [linear-design.md](linear-design.md)** for every design and implementation decision. Generic “clean/modern” UI is a failure mode.
+
+Final taste stays with the user; the ship gate is **automation**.
 
 ## Applicability
 
@@ -28,99 +31,86 @@ Final look-and-feel taste stays with the user; the ship gate is **automation**.
 
 **Do not use when** backend-only or native non-browser UI.
 
-## Phase 1 — Design
+## Phase 1 — Design (guided)
 
-### 1a. `design.md` gate (generate if missing)
+**Before any UI plan or `design.md` write:** read [linear-design.md](linear-design.md) in full.
 
-Search the repo for a UI preset (`design.md`, `DESIGN.md`, `tokens.json`, design-system docs).
+### 1a. `design.md`
 
-- **If found:** use it as token/brand authority.
-- **If missing:** **create** `design.md` at the project root (or the obvious app package root) before coding. It must be concrete enough to implement against:
+Search for `design.md` / `DESIGN.md` / tokens / design-system docs.
 
-```markdown
-# Design
+- **If found:** merge gaps against the canon (add missing tokens/roles); do not dilute Linear rules with generic marketing UI.
+- **If missing:** **create** `design.md` at project (or app package) root **by instantiating the canon** — copy concrete tokens, type ladder, spacing, component rules from [linear-design.md](linear-design.md). Do not leave placeholder “(fill in)” aesthetic lines.
 
-## Direction
-Linear-inspired: restrained, dense, precise alignment, quiet chrome, subtle motion.
+Map tokens to existing CSS variables when the repo already has a theme; otherwise use the canon’s starter palette as-is.
 
-## Tokens
-- Colors: (background, surface, border, text, text-muted, accent, danger, …)
-- Typography: (font families, size/weight ladder, line-height)
-- Spacing: (4/8-based scale)
-- Radius / border / shadow: (prefer hairline borders; minimal shadow)
+### 1b. Change plan (must be Linear-specific)
 
-## Components
-- Buttons, inputs, lists/tables, nav, dialogs — default / hover / active / focus
+Before substantial UI code, publish a plan that **answers every item** in “Design plan must answer” from [linear-design.md](linear-design.md):
 
-## Do / Don't
-- Do: tight rhythm, one accent, clear hierarchy
-- Don't: loud gradients, glow, pill soup, heavy shadows, decorative clutter
-```
+1. Surfaces (bg / surface / border per region)  
+2. Type roles from the ladder only  
+3. Accent usage (where — and nowhere else)  
+4. Density (padding/gaps on the 4px scale)  
+5. Control states (default / hover / active / focus)
 
-Fill tokens from the project if CSS variables / theme files already exist; otherwise choose a coherent Linear-like set and stick to it.
+Reject and rewrite the plan if it describes: hero marketing layouts, gradient orbs, stat-card dashboards as the default chrome, soft clay UI, or “general modern SaaS” without canon tokens.
 
-### 1b. Change plan
+Then proceed to build (unless the user asks to review the plan first).
 
-Before substantial UI code, write a short plan for *this* change: structure, type hierarchy, key states. Then proceed to build (no hard wait unless the user asks to review first).
+## Phase 2 — Build
 
-## Phase 2 — Build (Linear-constrained)
+Implement exactly against `design.md` + [linear-design.md](linear-design.md) (project preset tokens win on named conflicts; structure/density/type rules still apply).
 
-Implement against `design.md` + this craft (preset wins on conflict):
-
-**Layout:** tight spacing scale; clear alignment; high density without clutter; one job per view.  
-**Type:** few sizes/weights; strong hierarchy.  
-**Color/surface:** neutrals + one accent; hairline borders; no glow / loud gradients / multi-layer shadows.  
-**Interaction:** Default / Hover / Active / Focus on interactive controls; short purposeful motion only.  
-**Code:** use tokens/CSS variables from `design.md`; no unexplained magic numbers; match project stack.
-
-**Avoid unless preset requires:** purple-on-white AI themes, ornamental pills/stat strips, toy radii, emoji chrome.
+- Use CSS variables / tokens from `design.md` — no ad-hoc hex/spacing that bypass the scale  
+- Densities, radii, borders, and type roles must match the plan  
+- Match project stack and file layout  
 
 ## Phase 3 — Automated verify
 
-Completion requires **passing automated checks**. Model commentary on screenshots is never the gate.
+Completion requires **passing automated checks**. Screenshot glance ≠ pass.
 
 ### 3a. Ensure Playwright
 
-If the project has no Playwright (or equivalent E2E already wired for UI):
+If Playwright (or equivalent wired UI E2E) is missing:
 
-1. Install Playwright into the project (`@playwright/test` + browsers) using the package manager already in use
-2. Add a minimal config and a smoke spec under the project’s normal test layout
-3. Prefer reusing an existing `playwright.config.*` / scripts if present
+1. Install `@playwright/test` + browsers with the repo’s package manager  
+2. Add minimal config + smoke spec in the normal test layout  
+3. Reuse existing config/scripts when present  
 
-### 3b. What to automate (minimum)
+### 3b. Minimum automation
 
-Scope to the UI just shipped:
+Scoped to what shipped:
 
-1. App/harness starts (use project’s documented start; wire `webServer` in Playwright when useful)
-2. Target route/view loads successfully
-3. Critical selectors / landmarks for the change are visible
-4. No unexplained page errors during the smoke (e.g. pageerror hooks) when practical
-5. Optional: screenshot **artifacts** attached to the test run for the user — for humans/CI, not agent PASS
+1. App/harness starts (`webServer` in Playwright when useful)  
+2. Target route/view loads  
+3. Critical selectors/landmarks visible  
+4. Page errors hooked when practical  
+5. Optional screenshot **artifacts** for the user/CI — not agent PASS  
 
-Expand only when the change warrants (form submit, dialog open/close, etc.).
-
-### 3c. Run and gate
+### 3c. Gate
 
 ```text
-npx playwright test   # or the project’s npm script
+npx playwright test   # or project script
 ```
 
-| Result | Ship status |
+| Result | Status |
 | --- | --- |
-| Tests pass | Verify **PASS** — report command + summary |
-| Tests fail | **FAIL** — fix UI or tests, re-run until pass or user stops |
-| Cannot install/run | **BLOCKED** — say what broke; do not claim UI verified |
+| Pass | Verify **PASS** — command + summary |
+| Fail | **FAIL** — fix and re-run |
+| Cannot run | **BLOCKED** — no “verified” claim |
 
 ```text
-build / lint / types / unit tests only   ≠  verified
-agent "looks Linear" / screenshot glance ≠  verified
-playwright not run                       ≠  verified
+build / lint / types / unit only     ≠  verified
+agent "looks Linear"                 ≠  verified
+playwright not run                   ≠  verified
 ```
 
 ## Checklist
 
-1. `design.md` exists (created or reused)
-2. Linear plan noted; UI implemented to preset + Linear craft
-3. Playwright installed/configured if it was missing
-4. Automated UI checks run and **pass**
-5. No agent aesthetic self-PASS
+1. Read [linear-design.md](linear-design.md)  
+2. `design.md` exists and encodes the canon (created or patched)  
+3. Change plan answers all five Linear plan questions  
+4. UI built to plan + canon  
+5. Playwright ready; automated checks **pass**  
+6. No agent aesthetic self-PASS  
