@@ -27,7 +27,7 @@ If you already use tools that read `~/.agents/skills/` (e.g. Codex/Cline-style),
 | Skill | Role |
 | --- | --- |
 | `typescript-style` | TS/React house style (cognitive load + Google beyond gts) |
-| `harness-ui-craft` | UI: preset → Linear design → code → evidence for user/CI (not LLM visual PASS) |
+| `harness-ui-craft` | UI: preset → Linear design **and** Linear implementation → evidence for user/CI (not LLM visual PASS). Replaces the old `web-ui-verification` skill. |
 
 **UI trust model:** LLMs are weak at visual acceptance. Craft produces design, code, and artifacts; humans or screenshot-regression CI accept look-and-feel.
 
