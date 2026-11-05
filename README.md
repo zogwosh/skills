@@ -29,7 +29,7 @@ npx skills remove web-ui-verification -a universal -y
 | Skill | Role |
 | --- | --- |
 | `typescript-style` | TS/React house style (cognitive load + Google beyond gts) |
-| `linear-ship` | Linear canon → `design.md` → build → Playwright verify (`linear-design.md` forces real Linear design, not generic UI) |
+| `linear-ship` | Linear product UI → build → Playwright (`linear-design.md`: no fluff copy, hide unused UI, dense work surfaces) |
 
 **UI trust model:** ship gate is Playwright (or project E2E), not model taste. Screenshots are artifacts for humans/CI.
 

@@ -1,20 +1,47 @@
-# Linear design canon (mandatory for design + build)
+# Linear design canon
 
-Use this as the default visual system when creating or extending `design.md`. Do not substitute generic “clean modern”, Material, or typical AI-landing aesthetics.
+Linear is a **precise product UI**, not a look-alike skin. Match how Linear *behaves on the page*, not a token questionnaire.
 
-## Product feel
+## Product principles (non-negotiable)
 
-Linear’s UI reads as a **precise tool**, not a marketing page:
+### 1. No descriptive fluff
 
-- Calm, dense, professional
-- Chrome is quiet; content and structure do the work
-- Everything feels measured (spacing, type, borders) — not “airy startup”
+Linear does **not** explain the UI to you with paragraphs.
 
-## Surfaces & color
+- Prefer short labels, nouns, and status — not “Get started by creating your first…” essays
+- No section subtitles that restate the obvious
+- No marketing blurbs, feature pitches, or helper prose next to primary chrome
+- Empty states stay minimal (one line + one action), not onboarding articles
+- If a sentence isn’t required to act, cut it
 
-Prefer a **neutral near-black / near-white** stack + **one indigo accent** (Linear’s accent family). Example starter tokens (adapt only if the repo already has a theme):
+### 2. Don’t show what you don’t need yet
 
-| Token | Dark-leaning default | Light-leaning default |
+Linear does **not** dump the whole product in your face on first paint.
+
+- First view = the **job at hand** only (list, issue, editor, …)
+- Advanced filters, rare actions, secondary metadata → menus, overflow, keyboard, or progressive disclosure
+- Don’t pre-render panels, tabs, or settings the user didn’t open
+- Don’t decorate the viewport with unused widgets “for discovery”
+- Prefer **search / command / context menu** over permanent control strips
+
+### 3. Density for work, not decoration
+
+- Information-dense rows and panels; quiet chrome
+- Structure and hierarchy do the teaching — not cards of copy
+- One primary work surface; side nav / list + detail when needed
+- Ornament (gradients, glow, hero art, stat-card theater) is out of character
+
+### 4. Actions over explanation
+
+- Put the next action where the work is (row actions, inline create, keyboard)
+- Prefer affordances that are obvious from layout over instructional text
+- States (hover / focus / selected / empty) should be visible without captions
+
+## Visual defaults (support the principles)
+
+Use when generating `design.md` or when the repo has no theme. Principles above win if a pretty layout violates them.
+
+| Token | Dark | Light |
 | --- | --- | --- |
 | `bg` | `#0F0F10` | `#F7F8F8` |
 | `surface` | `#19191B` | `#FFFFFF` |
@@ -23,67 +50,28 @@ Prefer a **neutral near-black / near-white** stack + **one indigo accent** (Line
 | `text` | `#EDEDEF` | `#1B1B1F` |
 | `text-muted` | `#8A8F98` | `#6B6F76` |
 | `accent` | `#5E6AD2` | `#5E6AD2` |
-| `accent-muted` | `#3F45A0` | `#C7CBF5` |
 | `danger` | `#EB5757` | `#D94A4A` |
 
-Rules:
+- Neutrals first; accent only for primary action / focus / selection
+- Hairline `1px` borders; little or no shadow
+- Type: compact UI sans (e.g. Inter); body ~13–14px; titles restrained; muted for meta
+- Spacing: 4px grid; compact control height ~28–32px; radius ~6–8px
+- Motion: 120–200ms, purposeful only
 
-- ~90% neutrals; accent only for primary actions, focus rings, selection, key links
-- No broad purple/multicolor gradients behind whole pages
-- No glow, neon, glassmorphism stacks, or multi-layer drop shadows
-- Borders: **1px** hairline at `border`; separation by border/background shift, not shadow
+## Design plan (what to decide)
 
-## Typography
+For each UI change, briefly state — in product terms, not a form:
 
-- UI sans only (Inter, or project-specified geometric sans). No display serif hero type for app chrome.
-- Ladder (stick to these roles):
+1. **Job at hand** — what is the one thing this view is for on first paint?  
+2. **What’s hidden** — what is intentionally *not* shown until needed, and where it lives (menu, overflow, drill-in)?  
+3. **Copy budget** — list every user-visible string; cut anything descriptive that isn’t required to act  
+4. **Structure** — regions (nav / list / detail / …) and how hierarchy works without explanatory text  
 
-| Role | Size | Weight | Color |
-| --- | --- | --- | --- |
-| Page title | 20–24px | 580–600 | `text` |
-| Section | 13–14px | 560–600 | `text` |
-| Body | 13–14px | 400–450 | `text` |
-| Meta / label | 11–12px | 450–500 | `text-muted` |
-| Mono (IDs, keys) | 12px | 400 | `text-muted` |
+Optional one-liner on tokens only if creating or extending `design.md`.
 
-- Tight line-height (~1.35–1.5 for body). Do not inflate type for “marketing warmth.”
-- Avoid more than **two** weights on a single view besides regular + semibold.
+## Failure modes (rewrite the design)
 
-## Spacing & layout
-
-- Base unit **4px**; common steps 4 / 8 / 12 / 16 / 24 / 32
-- Prefer **compact** padding (e.g. controls `6–10px` vertical, panels `12–16px`) over large empty hero regions
-- One primary column of work; side nav / list + detail is idiomatic
-- Align labels, icons, and text to a shared vertical rhythm
-- Radius: **6–8px** controls/panels; **not** pill-everything (`9999px` only for true chips/avatars if needed)
-
-## Components (Linear-like)
-
-- **Buttons:** solid accent primary; quiet ghost/secondary with border or subtle fill; height ~28–32px; no giant CTAs
-- **Inputs:** hairline border, same radius, clear focus ring using accent at low opacity; placeholder = `text-muted`
-- **Lists/rows:** dense rows, hover = `surface-hover`, selected = accent-tint or left accent bar — not heavy cards
-- **Nav:** flat, icon + label, muted until active; active = stronger text + subtle surface, not loud pills
-- **Dialogs/menus:** surface + border, small shadow optional (`0 8px 24px` at ~20% black max); no modal theater
-- **Icons:** simple stroke/geometric; monochrome; aligned to text caps height
-
-## Motion
-
-- 120–200ms ease for hover/focus/panel
-- No bounce, no parallax, no decorative loop animations
-
-## Explicit non-goals (reject in design plans)
-
-- Marketing landing compositions (huge hero headline + gradient orb + three feature cards)
-- Dashboard “stat card” grids as the first viewport default
-- Soft claymorphism / skeuomorphism
-- Rainbow badges, emoji as structure, sticker clutter
-
-## Design plan must answer
-
-Before build, the change plan must explicitly state:
-
-1. **Surfaces:** which bg/surface/border tokens apply to each region  
-2. **Type roles:** which ladder steps are used (no ad-hoc sizes)  
-3. **Accent usage:** where accent appears (and nowhere else)  
-4. **Density:** padding/gap values from the 4px scale  
-5. **States:** default / hover / active / focus for new controls  
+- Long helper / onboarding copy in primary chrome  
+- First paint shows controls or panels the user doesn’t need yet  
+- Layout that “sells” the feature instead of hosting the work  
+- Filling space with descriptive cards instead of the actual artifact (list, doc, issue, …)  
